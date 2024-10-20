@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  ledfx:
+    image: serturx/ledfx-git:2.0.71-a # Fork includes fixes to run on a RaspberryPi3 B
+    container_name: ledfx
+    environment:
+      - HOST=192.168.0.15
+      - FORMAT=-r 44100 -f S16_LE -c 2
+      - SQUEEZE=1
+    ports:
+      - 8888:8888
+    volumes:
+      - ./ledfx-config:/app/ledfx-config
+      - ./audio/ledfx.audio:/app/audio/stream # Created by prepare_airplay.sh
+#      - /tmp/ledfx.audio:/app/audio/stream
+  shairport-sync:
+    image: mikebrady/shairport-sync:latest
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+#      - /tmp/shairport.audio:/app/shairport.audio
+      - ./audio/shairport.audio:/app/shairport.audio
+      - ./ledfx/shairport.conf:/etc/shairport-sync.conf
+    # environment:
+    #  PULSE_SERVER: unix:/tmp/pulseaudio.socket # Path for PulseAudio socket
+    #  PULSE_COOKIE: /tmp/pulseaudio.cookie # Path for PulseAudio cookie
+    devices:
+      - "/dev/snd" # ALSA device
+    # volumes:
+    #   - ./volumes/shairport-sync/shairport-sync.conf:/etc/shairport-sync.conf # Customised Shairport Sync configuration file.
+    #   - /run/user/1000/pulse/native:/tmp/pulseaudio.socket # PulseAudio socket when using that backend
+    logging:
+      options:
+        max-size: "200k"
+        max-file: "10"
