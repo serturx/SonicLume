@@ -28,7 +28,9 @@ A linux-based machine with:
 ## Usage
 1. Clone this repo on your server.
 2. Run `start.sh`.
-3. Go to `http://<your-server-address>:8080/` and connect your bluetooth device. LedFx and Shairport should start now.
-![bt-ctl-example](./bt-ctl.png)
+3. Go to `http://<your-server-address>:8080/` and connect your bluetooth device. LedFx and Shairport should start now.  
+
+![bt-ctl-example](./bt-ctl.png)  
+
 4. Go to `http://<your-server-address>:8888/` to access the LedFx web-ui and configure your led-strips. Refer to the [LedFx Docs](https://github.com/ledfx/ledfx) on how to do that.
 5. Start playing music via AirPlay device "AirPi" (or whatever you called it).
