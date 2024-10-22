@@ -35,9 +35,7 @@ services:
         max-size: "200k"
         max-file: "10"
   bt-ctl:
-    build:
-      context: ./bt-ctl
-      dockerfile: Dockerfile
+    image: serturx/bt-ctl:latest
     volumes:
       - "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket"
     ports:

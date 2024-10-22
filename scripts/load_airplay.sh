@@ -21,5 +21,5 @@ pactl load-module module-loopback source=fifo_input sink=$BLUETOOTH_NAME
 
 ./scripts/readloop.sh &
 
-sudo docker compose up -d
+sudo docker compose up -d ledfx shairport-sync
 
