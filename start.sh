@@ -7,10 +7,8 @@ function cleanup {
 function is_already_connected {
     BLUETOOTH_NAME=$(pactl list sinks | grep -m 1 'Name: bluez' | awk -F ': ' '{print $2}')
     if [ -n "$BLUETOOTH_NAME" ]; then
-        echo "alr"
         return 0
     else
-        echo "nop"
         return 1
     fi
 }

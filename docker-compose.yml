@@ -9,7 +9,7 @@ services:
       - FORMAT=-r 44100 -f S16_LE -c 2
       - SQUEEZE=1
     ports:
-      - 8888:8888
+      - 8888:8888 # Can be changed to <your-port>:8888
     volumes:
       - ./config/ledfx-config.json:/app/ledfx-config/config.json
       - ./config/ledfx-config.yaml:/app/ledfx-config/config.yaml
@@ -19,17 +19,10 @@ services:
     network_mode: host
     restart: unless-stopped
     volumes:
-#      - /tmp/shairport.audio:/app/shairport.audio
       - ./audio/shairport.audio:/app/shairport.audio
       - ./config/shairport.conf:/etc/shairport-sync.conf
-    # environment:
-    #  PULSE_SERVER: unix:/tmp/pulseaudio.socket # Path for PulseAudio socket
-    #  PULSE_COOKIE: /tmp/pulseaudio.cookie # Path for PulseAudio cookie
     devices:
       - "/dev/snd" # ALSA device
-    # volumes:
-    #   - ./volumes/shairport-sync/shairport-sync.conf:/etc/shairport-sync.conf # Customised Shairport Sync configuration file.
-    #   - /run/user/1000/pulse/native:/tmp/pulseaudio.socket # PulseAudio socket when using that backend
     logging:
       options:
         max-size: "200k"
