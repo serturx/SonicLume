@@ -7,17 +7,20 @@ function cleanup {
 function is_already_connected {
     BLUETOOTH_NAME=$(pactl list sinks | grep -m 1 'Name: bluez' | awk -F ': ' '{print $2}')
     if [ -n "$BLUETOOTH_NAME" ]; then
+        echo "alr"
         return 0
     else
+        echo "nop"
         return 1
     fi
 }
 
 trap cleanup EXIT
 
+mkdir -p ./audio
 sudo docker compose up -d bt-ctl 
 
-if [ is_already_connected() ]; then
+if is_already_connected; then
     echo "Bluetooth audio device already connected, running load script..."
     ./scripts/load_airplay.sh &
 fi
@@ -36,7 +39,7 @@ pactl subscribe | while read; do
         
         if [[ $event == remove ]]; then
             echo "Removed bluetooth audio device, running unload script..."
-            ./scripts/rpi/unload_airplay.sh &
+            ./scripts/unload_airplay.sh &
         fi
     fi
 done

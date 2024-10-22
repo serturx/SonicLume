@@ -19,7 +19,7 @@ mkfifo -m a+rw $AUDIODIR/ledfx.audio $AUDIODIR/shairport.audio
 pactl load-module module-pipe-source file=/tmp/bt.audio
 pactl load-module module-loopback source=fifo_input sink=$BLUETOOTH_NAME
 
-./scripts/readloop.sh &
+./scripts/dupe_audio_loop.sh &
 
 sudo docker compose up -d ledfx shairport-sync
 
